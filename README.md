@@ -19,7 +19,7 @@ This case works using the `@angular-devkit/build-angular:karma` (legacy) builder
 This breaks tests that use test helpers like `@testing-library/angular`'s `render(template string, { imports: [TestModule]})`.
 
 ## Other cases that work
-Aside from the legacy builder, other similar but less convenient cases work:
+Aside from the legacy builder, other similar but less convenient cases work (see other test cases for details):
 
 1. If a test component imports the same module (but isn't overridden with it) the TestBed compile works.
 
