@@ -3,14 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  selector: 'test-cmp1',
-  template: `<div data-testid="test-cmp1">Test Component 1</div>`
+  selector: 'test-cmp2',
+  template: `<div data-testid="test-cmp2">Test Component 2</div>`
 })
-class TestCmp1 { }
+class TestCmp2 { }
 
 @NgModule({
-  imports: [TestCmp1],
-  exports: [TestCmp1]
+  imports: [TestCmp2],
+  exports: [TestCmp2]
 })
 class TestModule { }
 
@@ -25,18 +25,21 @@ class WrapperComponent { }
 
 describe('TestBed with non-standalone host components', () => {
 
-  // Does not compile using `@angular/build:unit-test` builder, so first test can't be run
-  // When running using unit-test builder, comment out this component and the first test.
   @Component({
-    template: `<div data-testid="test-host"><test-cmp1/></div>`,
+    template: `<div data-testid="test-host"><test-cmp2/></div>`,
     standalone: false
   })
   class TestHostComponent { }
 
+  @NgModule({
+    declarations: [TestHostComponent],
+    imports: [TestModule]
+  })
+  class TestHostModule { }
+
   it('creates host component with child component from module', async () => {
     const testBed = TestBed.configureTestingModule({
-      declarations: [TestHostComponent],
-      imports: [TestModule]
+      imports: [TestHostModule]
     });
     await testBed.compileComponents();
 
@@ -48,11 +51,11 @@ describe('TestBed with non-standalone host components', () => {
   it('creates empty component with overridden template and imported child component', async () => {
     const testBed = TestBed.configureTestingModule({
         declarations: [ WrapperComponent ],
-        imports: [TestCmp1]
+      imports: [TestCmp2]
       })
       .overrideComponent(WrapperComponent, {
         set: {
-          template: `<test-cmp1/>`
+          template: `<test-cmp2/>`
         }
       });
     await testBed.compileComponents();
@@ -70,7 +73,7 @@ describe('TestBed with non-standalone host components', () => {
       ]
     }).overrideComponent(WrapperComponent, {
       set: {
-        template: `<test-cmp1/>`,
+        template: `<test-cmp2/>`,
       }
     });
     await testBed.compileComponents();
@@ -81,8 +84,8 @@ describe('TestBed with non-standalone host components', () => {
   });
 
   async function expectContainsTestCmp1(fixture: ComponentFixture<unknown>) {
-    expect(findDirective(fixture, TestCmp1)).toBeInstanceOf(TestCmp1);
-    await expect(fixture.nativeElement.querySelector('[data-testid="test-cmp1"]')).toBeTruthy();
+    expect(findDirective(fixture, TestCmp2)).toBeInstanceOf(TestCmp2);
+    await expect(fixture.nativeElement.querySelector('[data-testid="test-cmp2"]')).toBeTruthy();
   }
 
 });

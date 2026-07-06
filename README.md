@@ -70,6 +70,4 @@ It is valid code and should compile, though it should fail at runtime unless the
 2. Run tests using the unit test builder using either vitest or karma:
    * In angular.json, rename "test" target to "test-devkit", and rename "test-karma" or "test-vitest" to "test"
    * `ng test`
-   * Note compile failure described above, and comment out `TestHostComponent` and the first test in `./src/tests/testbedNotStandaloneOverrideImports.spec.ts`.
-   * `ng test` again
    * Note that the cases where a module is added in `.overrideComponent()` fail.
