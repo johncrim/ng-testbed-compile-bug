@@ -63,6 +63,25 @@ describe('TestBed with standalone host components', () => {
     await expectContainsTestCmp1(fixture);
   });
 
+  it('FAILS unit-test builder: creates host component with child component from module, and overrideComponent() called', async () => {
+    const testBed = TestBed.configureTestingModule({
+      imports: [
+        TestHostComponent
+      ]
+    })
+      // The test also fails if overrideComponent() is empty - it just has to be called
+      .overrideComponent(TestHostComponent, {
+        set: {
+          template: `<test-cmp1/><test-cmp1/>`,
+        }
+      });
+    await testBed.compileComponents();
+
+    const fixture = testBed.createComponent(TestHostComponent);
+
+    await expectContainsTestCmp1(fixture);
+  });
+
   it('FAILS unit-test builder: creates empty component with overridden template and child component from module', async () => {
     const testBed = TestBed.configureTestingModule({
       imports: [
