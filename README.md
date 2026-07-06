@@ -55,7 +55,10 @@ It is valid code and should compile, though it should fail at runtime unless the
 
 1. Run these tests using the legacy karma builder (all pass):
 
-   `ng test`
+   ```
+   pnpm install
+   ng test
+   ```
 
 2. Run tests using the unit test builder using either vitest or karma:
    * In angular.json, rename "test" target to "test-devkit", and rename "test-karma" or "test-vitest" to "test"
