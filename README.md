@@ -12,7 +12,14 @@ TestBed.overrideComponent(Cmp, {
       }
     }).compileComponents()
 ```
-fails - it acts as if the module import is missing or has no effect. [Test Case](https://github.com/johncrim/ng-testbed-compile-bug/blob/main/src/tests/testbedStandaloneOverrideImports.spec.ts#L66)
+fails - it acts as if the module import is missing or has no effect.
+
+[Test Case](https://github.com/johncrim/ng-testbed-compile-bug/blob/main/src/tests/testbedStandaloneOverrideImports.spec.ts#L85)
+
+It also fails if `Cmp` correctly imports `<test-cmp1>`, the call to `overrideComponent()` is sufficient to break imports.
+
+[Test Case](https://github.com/johncrim/ng-testbed-compile-bug/blob/main/src/tests/testbedStandaloneOverrideImports.spec.ts#L66)
+
 
 This case works using the `@angular-devkit/build-angular:karma` (legacy) builder.
 
